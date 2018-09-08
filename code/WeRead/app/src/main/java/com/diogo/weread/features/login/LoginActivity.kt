@@ -1,6 +1,7 @@
 package com.diogo.weread.features.login
 
 import android.content.Intent
+import com.diogo.weread.BuildConfig
 import com.diogo.weread.R
 import com.diogo.weread.features.MainActivity
 import com.diogo.weread.features.base.BaseActivity
@@ -23,7 +24,8 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
     override fun onCreate() {
         loginButton.setOnClickListener {
             if (isFormValid()) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                presenter.loginUser(loginEmailEditText.text.toString(),
+                        loginPasswordEditText.text.toString())
             }
         }
 
@@ -42,17 +44,14 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
                 loginPasswordEditText.error = null
             }
         }
+
     }
 
     /**************/
     /** Callbacks */
     /**************/
     override fun onLoginSuccess() {
-        //TODO
-    }
-
-    override fun onError() {
-        //TODO
+        startActivity(Intent(applicationContext, MainActivity::class.java))
     }
 
     /**********/
