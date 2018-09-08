@@ -22,6 +22,13 @@ class AuthRepository(private val weDeployClient: WeDeploy) {
                 .asSingle()
     }
 
+
+
+    /**
+     * Call this to verify if the user was previous logged. For instance, at splash screen check
+     * for a session in shared preferences if false call this method and then navigate user to
+     * login or main screen
+     */
     @Throws(IllegalArgumentException::class)
     fun getCurrentUser(): Single<Response> {
         return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
