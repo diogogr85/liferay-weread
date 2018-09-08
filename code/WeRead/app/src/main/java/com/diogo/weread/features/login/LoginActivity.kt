@@ -4,6 +4,8 @@ import android.content.Intent
 import com.diogo.weread.R
 import com.diogo.weread.features.MainActivity
 import com.diogo.weread.features.base.BaseActivity
+import com.diogo.weread.features.createAccount.CreateAccountActivity
+import com.diogo.weread.utils.validateField
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.generic.instance
 
@@ -26,7 +28,7 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
         }
 
         loginCreateAccountButton.setOnClickListener {
-            //TODO - create account screen
+            startActivity(Intent(applicationContext, CreateAccountActivity::class.java))
         }
 
         loginEmailEditText.setOnFocusChangeListener { view, hasFocus ->
@@ -57,19 +59,10 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
     /** Utils */
     /**********/
     private fun isFormValid(): Boolean {
-        var isValid = true
+        val errorMsg = getString(R.string.error_required_field_text)
 
-        if (loginEmailEditText.text.isEmpty()) {
-            isValid = false
-            loginEmailEditText.error = getString(R.string.error_required_field_text)
-        }
-
-        if (loginPasswordEditText.text.isEmpty()) {
-            isValid = false
-            loginPasswordEditText.error = getString(R.string.error_required_field_text)
-        }
-
-        return isValid
+        return loginEmailEditText.validateField(errorMsg) and
+                loginPasswordEditText.validateField(errorMsg)
     }
 
 }
