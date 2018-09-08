@@ -1,14 +1,11 @@
 package com.diogo.weread.data.repositories
 
-import android.util.Log
 import com.diogo.weread.BuildConfig
 import com.diogo.weread.data.models.Session
+import com.diogo.weread.data.models.User
 import com.wedeploy.android.WeDeploy
 import com.wedeploy.android.transport.Response
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 
 class AuthRepository(private val weDeployClient: WeDeploy) {
@@ -19,5 +16,17 @@ class AuthRepository(private val weDeployClient: WeDeploy) {
                 .asSingle()
     }
 
+    fun createAccount(user: User, password: String): Single<Response> {
+        return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
+                .createUser(user.email, password, user.name)
+                .asSingle()
+    }
+
+    @Throws(IllegalArgumentException::class)
+    fun getCurrentUser(): Single<Response> {
+        return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
+                .currentUser
+                .asSingle()
+    }
 
 }

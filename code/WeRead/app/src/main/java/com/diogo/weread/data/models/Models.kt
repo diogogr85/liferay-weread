@@ -7,7 +7,7 @@ data class Session(
 )
 
 data class User(
-        val id: String,
+        val id: String? = null,
         val name: String,
         val email: String
 )

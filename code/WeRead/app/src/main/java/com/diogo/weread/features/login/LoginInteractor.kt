@@ -25,8 +25,27 @@ class LoginInteractor(private val repository: AuthRepository) {
                             Log.d("AUTHENTICATION-ERROR", it.message)
                             onError("Ocorreu uma falha. ${it.message}")
                         }
-
                 )
     }
+
+    @Throws(IllegalArgumentException::class)
+    fun getCurrentUser(onSuccess: (Any) -> Unit,
+                       onError: (String) -> Unit): Disposable {
+        return repository.getCurrentUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            onSuccess(it)
+                            Log.d("AUTHENTICATION-SUCCESS", "User authenticated: ${it.body}")
+                        },
+                        {
+                            it.printStackTrace()
+                            Log.d("AUTHENTICATION-ERROR", it.message)
+                            onError("Ocorreu uma falha. ${it.message}")
+                        }
+                )
+    }
+
 
 }

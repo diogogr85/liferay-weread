@@ -14,8 +14,9 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         getView()?.showProgress(true)
         val disposable = interactor.authenticateUser(Session(email, password),
                 {
-                    //TODO - user logged
-                    getView()?.showProgress(false)
+                    //TODO - user signed
+//                    getView()?.showProgress(false)
+                    getCurrentUser()
                 },
                 {
                     getView()?.showMessage(it)
@@ -23,6 +24,29 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
                 })
 
         compositeDisposable.add(disposable)
+    }
+
+    private fun getCurrentUser() {
+        try {
+            getView()?.showProgress(true)
+            val disposable = interactor.getCurrentUser(
+                    {
+                        //TODO - user logged
+                        getView()?.showProgress(false)
+                    },
+                    {
+                        getView()?.showMessage(it)
+                        getView()?.showProgress(false)
+                    })
+
+            compositeDisposable.add(disposable)
+
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            getView()?.showMessage(e.message)
+        }finally {
+            getView()?.showProgress(false)
+        }
     }
 
 }

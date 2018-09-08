@@ -1,6 +1,7 @@
 package com.diogo.weread.di
 
 import com.diogo.weread.data.repositories.AuthRepository
+import com.diogo.weread.features.createAccount.CreateAccountInteractor
 import com.diogo.weread.features.createAccount.CreateAccountPresenter
 import com.diogo.weread.features.login.LoginInteractor
 import com.diogo.weread.features.login.LoginPresenter
@@ -22,9 +23,10 @@ val repositoryModule = Kodein.Module("Repository") {
 
 val interactorModule = Kodein.Module("Interactor") {
     bind<LoginInteractor>() with provider { LoginInteractor(instance()) }
+    bind<CreateAccountInteractor>() with provider { CreateAccountInteractor(instance()) }
 }
 
 val presenterModule = Kodein.Module("Presenters") {
     bind<LoginPresenter>() with provider { LoginPresenter(instance()) }
-    bind<CreateAccountPresenter>() with provider { CreateAccountPresenter() }
+    bind<CreateAccountPresenter>() with provider { CreateAccountPresenter(instance()) }
 }
