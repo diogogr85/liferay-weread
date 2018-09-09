@@ -26,3 +26,12 @@ data class User(
         val name: String,
         val email: String
 )
+
+data class Feed(
+        val id: String,
+        val userId: String,
+        val title: String,
+        val url: String,
+        val readTime: Int,
+        val createdAt: String
+)

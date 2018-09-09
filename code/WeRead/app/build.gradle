@@ -18,6 +18,7 @@ android {
         setProperty("archivesBaseName", "weread-$versionName")
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -35,7 +36,7 @@ android {
         development {
             applicationIdSuffix ".development"
             buildConfigField "String", 'API_AUTH_ENDPOINT', '"https://auth-wemustread.wedeploy.io"'
-            buildConfigField "String", 'API_DATA_ENDPOINT', '""'
+            buildConfigField "String", 'API_DATA_ENDPOINT', '"https://data-wemustread.wedeploy.io"'
 
             dimension "default"
         }
@@ -60,6 +61,7 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$runner_version"
     androidTestImplementation "com.android.support.test:rules:$rules_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
 
     implementation "com.android.support:appcompat-v7:$support_library_version"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"

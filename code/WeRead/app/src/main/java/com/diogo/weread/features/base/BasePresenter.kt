@@ -6,7 +6,7 @@ import java.lang.ref.WeakReference
 abstract class BasePresenter<V> {
 
     protected val compositeDisposable = CompositeDisposable()
-    var view: WeakReference<V>? = null
+    private var view: WeakReference<V>? = null
 
     fun bindView(view: V?) {
         this.view = WeakReference<V>(view)

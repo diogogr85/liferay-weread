@@ -6,6 +6,7 @@ import com.diogo.weread.R
 import com.diogo.weread.features.MainActivity
 import com.diogo.weread.features.base.BaseActivity
 import com.diogo.weread.features.createAccount.CreateAccountActivity
+import com.diogo.weread.features.feeds.FeedsActivity
 import com.diogo.weread.utils.validateField
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.generic.instance
@@ -55,7 +56,8 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
     /** Callbacks */
     /**************/
     override fun onLoginSuccess() {
-        startActivity(Intent(applicationContext, MainActivity::class.java))
+        startActivity(Intent(applicationContext, FeedsActivity::class.java))
+        finish()
     }
 
     /**********/

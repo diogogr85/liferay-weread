@@ -1,8 +1,11 @@
 package com.diogo.weread.di
 
 import com.diogo.weread.data.repositories.AuthRepository
+import com.diogo.weread.data.repositories.FeedRepository
 import com.diogo.weread.features.createAccount.CreateAccountInteractor
 import com.diogo.weread.features.createAccount.CreateAccountPresenter
+import com.diogo.weread.features.feeds.FeedsInteractor
+import com.diogo.weread.features.feeds.FeedsPresenter
 import com.diogo.weread.features.login.LoginInteractor
 import com.diogo.weread.features.login.LoginPresenter
 import com.wedeploy.android.WeDeploy
@@ -19,14 +22,17 @@ val networkModule = Kodein.Module("Network") {
 
 val repositoryModule = Kodein.Module("Repository") {
     bind<AuthRepository>() with provider { AuthRepository(instance()) }
+    bind<FeedRepository>() with provider { FeedRepository(instance()) }
 }
 
 val interactorModule = Kodein.Module("Interactor") {
     bind<LoginInteractor>() with provider { LoginInteractor(instance()) }
     bind<CreateAccountInteractor>() with provider { CreateAccountInteractor(instance()) }
+    bind<FeedsInteractor>() with provider { FeedsInteractor(instance()) }
 }
 
 val presenterModule = Kodein.Module("Presenters") {
     bind<LoginPresenter>() with provider { LoginPresenter(instance()) }
     bind<CreateAccountPresenter>() with provider { CreateAccountPresenter(instance()) }
+    bind<FeedsPresenter>() with provider { FeedsPresenter(instance()) }
 }

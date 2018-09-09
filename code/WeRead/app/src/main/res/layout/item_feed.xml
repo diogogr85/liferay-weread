@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/bg_bottom_border"
+    android:id="@+id/itemFeedContainer">
+
+    <TextView
+        android:id="@+id/itemFeedTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/colorText"
+        android:textStyle="bold"
+        tools:text="Title lorem ipsum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/itemFeedUrlTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textColor="@color/colorSecondaryText"
+        tools:text="https://loremipsum.wedeploy.com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemFeedTitleTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/itemFeedReadTimeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/colorSecondaryText"
+        tools:text="5 min"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemFeedUrlTextView"/>
+
+    <TextView
+        android:id="@+id/itemFeedCreatedAtTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/colorSecondaryText"
+        tools:text="12/03/2018"
+        app:layout_constraintTop_toTopOf="@id/itemFeedReadTimeTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
