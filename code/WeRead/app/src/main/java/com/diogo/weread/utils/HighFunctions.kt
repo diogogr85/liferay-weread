@@ -1,6 +1,8 @@
 package com.diogo.weread.utils
 
 import android.widget.EditText
+import com.google.gson.Gson
+import com.wedeploy.android.transport.Response
 
 
 fun EditText.validateField(errorMsg: String): Boolean {
@@ -10,4 +12,8 @@ fun EditText.validateField(errorMsg: String): Boolean {
 
     this.error = errorMsg
     return false
+}
+
+inline fun <reified T> Response.getBody(): T {
+    return Gson().fromJson(body, T::class.java)
 }

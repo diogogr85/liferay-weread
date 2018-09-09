@@ -1,6 +1,7 @@
 package com.diogo.weread.features.login
 
-import com.diogo.weread.data.models.Session
+import android.util.Log
+import com.diogo.weread.data.models.Auth
 import com.diogo.weread.features.base.BasePresenter
 
 
@@ -10,12 +11,13 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         compositeDisposable.clear()
     }
 
-    fun loginUser(email: String, password: String) {
+    fun authenticateUser(email: String, password: String) {
         getView()?.showProgress(true)
-        val disposable = interactor.authenticateUser(Session(email, password),
+        val disposable = interactor.authenticateUser(Auth(email, password),
                 {
                     //TODO - user signed
 //                    getView()?.showProgress(false)
+                    Log.d("SESSION-TOKEN", it.accessToken)
                     getCurrentUser()
                 },
                 {
@@ -26,12 +28,36 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         compositeDisposable.add(disposable)
     }
 
+    private fun getUser(userId: String) {
+        try {
+            getView()?.showProgress(true)
+            val disposable = interactor.getUser(userId,
+                    {
+                        //TODO - user logged
+                        getView()?.showProgress(false)
+                    },
+                    {
+                        getView()?.showMessage(it)
+                        getView()?.showProgress(false)
+                    })
+
+            compositeDisposable.add(disposable)
+
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            getView()?.showMessage(e.message)
+        }finally {
+            getView()?.showProgress(false)
+        }
+    }
+
     private fun getCurrentUser() {
         try {
             getView()?.showProgress(true)
             val disposable = interactor.getCurrentUser(
                     {
                         //TODO - user logged
+                        getView()?.onLoginSuccess()
                         getView()?.showProgress(false)
                     },
                     {

@@ -34,14 +34,14 @@ android {
     productFlavors {
         development {
             applicationIdSuffix ".development"
-            buildConfigField "String", 'API_AUTH_ENDPOINT', '"https://auth­weread.wedeploy.io/"'
-            buildConfigField "String", 'API_DATA_ENDPOINT', '"https://data­weread.wedeploy.io/"'
+            buildConfigField "String", 'API_AUTH_ENDPOINT', '"https://auth-wemustread.wedeploy.io"'
+            buildConfigField "String", 'API_DATA_ENDPOINT', '""'
 
             dimension "default"
         }
         production {
-            buildConfigField "String", 'API_ENDPOINT', '""'
-            buildConfigField "String", 'API_DATA_ENDPOINT', '""'
+            buildConfigField "String", 'API_ENDPOINT', '"https://auth­weread.wedeploy.io/"'
+            buildConfigField "String", 'API_DATA_ENDPOINT', '"https://data­weread.wedeploy.io/"'
 
             dimension "default"
         }

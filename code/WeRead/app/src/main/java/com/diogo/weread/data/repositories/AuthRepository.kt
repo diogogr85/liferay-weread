@@ -1,6 +1,7 @@
 package com.diogo.weread.data.repositories
 
 import com.diogo.weread.BuildConfig
+import com.diogo.weread.data.models.Auth
 import com.diogo.weread.data.models.Session
 import com.diogo.weread.data.models.User
 import com.wedeploy.android.WeDeploy
@@ -10,9 +11,9 @@ import io.reactivex.Single
 
 class AuthRepository(private val weDeployClient: WeDeploy) {
 
-    fun authenticateUser(session: Session): Single<Response> {
+    fun authenticateUser(auth: Auth): Single<Response> {
         return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
-                .signIn(session.email, session.password)
+                .signIn(auth.email, auth.password)
                 .asSingle()
     }
 
@@ -22,7 +23,17 @@ class AuthRepository(private val weDeployClient: WeDeploy) {
                 .asSingle()
     }
 
+    fun getUsers(): Single<Response> {
+        return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
+                .allUsers
+                .asSingle()
+    }
 
+    fun getUser(userId: String): Single<Response> {
+        return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
+                .getUser(userId)
+                .asSingle()
+    }
 
     /**
      * Call this to verify if the user was previous logged. For instance, at splash screen check

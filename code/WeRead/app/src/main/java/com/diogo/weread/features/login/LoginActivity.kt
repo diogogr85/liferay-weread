@@ -24,7 +24,7 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
     override fun onCreate() {
         loginButton.setOnClickListener {
             if (isFormValid()) {
-                presenter.loginUser(loginEmailEditText.text.toString(),
+                presenter.authenticateUser(loginEmailEditText.text.toString(),
                         loginPasswordEditText.text.toString())
             }
         }
@@ -45,6 +45,10 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
             }
         }
 
+        if (BuildConfig.DEBUG) {
+            loginEmailEditText.setText("email@email.com")
+            loginPasswordEditText.setText("qwerty2134")
+        }
     }
 
     /**************/
