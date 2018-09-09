@@ -1,5 +1,6 @@
 package com.diogo.weread.features.createAccount
 
+import com.diogo.weread.BuildConfig
 import com.diogo.weread.R
 import com.diogo.weread.features.base.BaseActivity
 import com.diogo.weread.utils.validateField
@@ -22,18 +23,26 @@ class CreateAccountActivity: BaseActivity<CreateAccountView>(), CreateAccountVie
 
         createAccountButton.setOnClickListener {
             if (isFormValid()) {
-                //TODO - create account in wedeploy
-                finish()
+                presenter.createAccount(createAccountNameEditText.text.toString(),
+                        createAccountEmailEditText.text.toString(),
+                        createAccountPasswordEditText.text.toString())
             }
         }
 
         clearFocusListeners()
+
+        if (BuildConfig.DEBUG) {
+            createAccountNameEditText.setText("Joao das Neves")
+            createAccountEmailEditText.setText("email@email.com")
+            createAccountPasswordEditText.setText("qwerty2134")
+        }
     }
 
     /**************/
     /** Callbacks */
     /**************/
     override fun onCreateAccountSuccess() {
+        finish()
     }
 
     /**********/

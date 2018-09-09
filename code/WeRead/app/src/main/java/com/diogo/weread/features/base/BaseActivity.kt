@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
+import kotlinx.android.synthetic.main.component_progress_view.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
@@ -42,6 +44,7 @@ abstract class BaseActivity<V: BaseView>: AppCompatActivity(), KodeinAware, Base
 
 
     override fun showProgress(show: Boolean) {
+        progressView?.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showMessage(message: String?) {

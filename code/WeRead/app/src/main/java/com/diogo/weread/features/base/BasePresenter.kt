@@ -23,6 +23,10 @@ abstract class BasePresenter<V> {
         this.view = null
     }
 
+    fun getView(): V? {
+        return view?.get()
+    }
+
     abstract fun unsubscribe()
 
 }
