@@ -35,14 +35,14 @@ android {
     productFlavors {
         development {
             applicationIdSuffix ".development"
-            buildConfigField "String", 'API_AUTH_ENDPOINT', '"https://auth-wemustread.wedeploy.io"'
-            buildConfigField "String", 'API_DATA_ENDPOINT', '"https://data-wemustread.wedeploy.io"'
+            buildConfigField "String", 'API_AUTH_ENDPOINT', '"auth-wemustread.wedeploy.io"'
+            buildConfigField "String", 'API_DATA_ENDPOINT', '"data-wemustread.wedeploy.io"'
 
             dimension "default"
         }
         production {
-            buildConfigField "String", 'API_ENDPOINT', '"https://auth­weread.wedeploy.io/"'
-            buildConfigField "String", 'API_DATA_ENDPOINT', '"https://data­weread.wedeploy.io/"'
+            buildConfigField "String", 'API_AUTH_ENDPOINT', '"auth­weread.wedeploy.io/"'
+            buildConfigField "String", 'API_DATA_ENDPOINT', '"data­weread.wedeploy.io/"'
 
             dimension "default"
         }
@@ -83,4 +83,7 @@ dependencies {
 
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
     implementation "org.kodein.di:kodein-di-framework-android-support:$kodein_android_version"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
 }

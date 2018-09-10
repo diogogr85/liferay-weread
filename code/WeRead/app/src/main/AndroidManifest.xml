@@ -22,8 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".features.createAccount.CreateAccountActivity" />
+
         <activity android:name=".features.feeds.FeedsActivity"/>
+
+
+        <service
+            android:name=".data.services.FeedSyncService"
+            android:exported="false"/>
 
     </application>
 

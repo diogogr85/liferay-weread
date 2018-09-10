@@ -41,7 +41,6 @@ class FeedsActivity: BaseActivity<FeedsView>(), FeedsView {
     override fun onResume() {
         super.onResume()
         presenter.getFeeds()
-
     }
 
     override fun onFeedsSuccess(feeds: Array<Feed>) {

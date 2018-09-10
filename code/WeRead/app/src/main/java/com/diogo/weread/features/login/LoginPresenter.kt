@@ -16,13 +16,15 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         val disposable = interactor.authenticateUser(Auth(email, password),
                 {
                     //TODO - user signed
-//                    getView()?.showProgress(false)
+                    getView()?.showProgress(false)
                     Log.d("SESSION-TOKEN", it.accessToken)
-                    getCurrentUser()
+                    getView()?.onLoginSuccess()
+//                    getCurrentUser()
                 },
                 {
                     getView()?.showMessage(it)
                     getView()?.showProgress(false)
+                    getView()?.onLoginSuccess()
                 })
 
         compositeDisposable.add(disposable)

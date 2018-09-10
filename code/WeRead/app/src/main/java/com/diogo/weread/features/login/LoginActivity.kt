@@ -3,6 +3,7 @@ package com.diogo.weread.features.login
 import android.content.Intent
 import com.diogo.weread.BuildConfig
 import com.diogo.weread.R
+import com.diogo.weread.data.services.FeedSyncService
 import com.diogo.weread.features.MainActivity
 import com.diogo.weread.features.base.BaseActivity
 import com.diogo.weread.features.createAccount.CreateAccountActivity
@@ -50,6 +51,13 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
             loginEmailEditText.setText("email@email.com")
             loginPasswordEditText.setText("qwerty2134")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //FIXME - Call this at a better place
+        startService(Intent(applicationContext, FeedSyncService::class.java))
     }
 
     /**************/

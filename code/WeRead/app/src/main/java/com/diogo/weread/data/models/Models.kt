@@ -1,5 +1,7 @@
 package com.diogo.weread.data.models
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 
@@ -27,7 +29,9 @@ data class User(
         val email: String
 )
 
+@Entity(tableName = "feeds")
 data class Feed(
+        @PrimaryKey
         val id: String,
         val userId: String,
         val title: String,

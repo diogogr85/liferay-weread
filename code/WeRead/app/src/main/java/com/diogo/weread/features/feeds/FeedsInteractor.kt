@@ -11,12 +11,12 @@ class FeedsInteractor(private val repository: FeedRepository) {
 
     fun getFeeds(onSuccess: (Array<Feed>) -> Unit,
                  onError: (String) -> Unit): Disposable {
-        return repository.getFeeds()
+        return repository.getFeedsLocal()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            onSuccess(it.getBody<Array<Feed>>())
+                            onSuccess(it)
                         },
                         {
                             it.printStackTrace()
