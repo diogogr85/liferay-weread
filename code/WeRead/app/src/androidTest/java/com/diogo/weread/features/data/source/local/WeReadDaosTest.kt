@@ -4,8 +4,10 @@ import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.diogo.weread.data.models.Feed
-import com.diogo.weread.data.source.local.FeedsDao
-import com.diogo.weread.data.source.local.WeReadDataBase
+import com.diogo.weread.data.models.FeedItem
+import com.diogo.weread.data.models.FeedWrong
+import com.diogo.weread.data.source.local.database.FeedsDao
+import com.diogo.weread.data.source.local.database.WeReadDataBase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.hamcrest.MatcherAssert.assertThat
@@ -38,8 +40,8 @@ class WeReadDaosTest {
 
     @Test
     fun writeAnReadFeed() {
-        val feed = Feed("1", "12345", "test title", "http://test.com",
-                23, "12/12/1989")
+        val feed = Feed(1, "12345", "test title", "http://test.com",
+                "general","url","12/12/1989", ArrayList<FeedItem>())
         dao.insertFeed(feed)
 
         dao.getFeeds()

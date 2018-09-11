@@ -26,7 +26,7 @@ class FeedSyncService: IntentService("FeedSyncService"), KodeinAware {
         val disposable = repository.getFeedsRemote()
                 .subscribeOn(Schedulers.io())
                 .map {
-                    repository.persistFeeds(it.getBody<Array<Feed>>())
+                    repository.saveFeedsLocal(it.getBody<List<Feed>>())
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

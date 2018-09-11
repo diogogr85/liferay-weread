@@ -1,4 +1,4 @@
-package com.diogo.weread.data.source.local
+package com.diogo.weread.data.source.local.database
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -11,11 +11,11 @@ import io.reactivex.Flowable
 @Dao
 interface FeedsDao {
 
-    @Query("SELECT * FROM feeds")
-    fun getFeeds(): Flowable<Array<Feed>>
+    @Query("SELECT * FROM feed")
+    fun getFeeds(): Flowable<List<Feed>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFeed(feed: Array<Feed>)
+    fun insertFeed(feed: List<Feed>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFeed(feed: Feed)

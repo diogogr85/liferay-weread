@@ -77,7 +77,14 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
 
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$converter_gson_version"
+    implementation "com.squareup.retrofit2:converter-simplexml:$converter_xml_version"
     implementation "com.wedeploy:com.wedeploy.android:$wedeploy_version"
+
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 

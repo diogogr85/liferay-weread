@@ -3,4 +3,13 @@
 
     <string name="error_required_field_text">Required field</string>
     <string name="empty_feed_list_text">You do not have any feeds saved yet</string>
+
+    <string-array name="category_arrays">
+        <item>General</item>
+        <item>Videos</item>
+        <item>News</item>
+        <item>Social</item>
+        <item>Tecnology</item>
+        <item>Food</item>
+    </string-array>
 </resources>

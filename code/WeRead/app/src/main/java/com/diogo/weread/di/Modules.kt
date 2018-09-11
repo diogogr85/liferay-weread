@@ -2,15 +2,20 @@ package com.diogo.weread.di
 
 import android.arch.persistence.room.Room
 import com.diogo.weread.data.repositories.AuthRepository
+import com.diogo.weread.data.repositories.FeedMotorRepository
 import com.diogo.weread.data.repositories.FeedRepository
-import com.diogo.weread.data.source.local.FeedsDao
-import com.diogo.weread.data.source.local.WeReadDataBase
+import com.diogo.weread.data.source.local.database.FeedsDao
+import com.diogo.weread.data.source.local.database.WeReadDataBase
+import com.diogo.weread.data.source.remote.RestApi
+import com.diogo.weread.data.source.remote.ServiceClient
+import com.diogo.weread.features.feeds.AddFeed.AddFeedInteractor
 import com.diogo.weread.features.createAccount.CreateAccountInteractor
 import com.diogo.weread.features.createAccount.CreateAccountPresenter
 import com.diogo.weread.features.feeds.FeedsInteractor
 import com.diogo.weread.features.feeds.FeedsPresenter
 import com.diogo.weread.features.login.LoginInteractor
 import com.diogo.weread.features.login.LoginPresenter
+import com.prof.rssparser.Parser
 import com.wedeploy.android.WeDeploy
 import org.kodein.di.Kodein
 import org.kodein.di.generic.*
@@ -18,6 +23,8 @@ import org.kodein.di.generic.*
 
 val networkModule = Kodein.Module("Network") {
     bind<WeDeploy>() with singleton { WeDeploy.Builder().build() }
+    bind<Parser>() with singleton { Parser() }
+    bind<RestApi>() with singleton { ServiceClient().getApiClient() }
 }
 
 val databaseModule = Kodein.Module("Database") {
@@ -39,16 +46,18 @@ val daoModule = Kodein.Module("Dao") {
 val repositoryModule = Kodein.Module("Repository") {
     bind<AuthRepository>() with provider { AuthRepository(instance()) }
     bind<FeedRepository>() with provider { FeedRepository(instance(), instance()) }
+    bind<FeedMotorRepository>() with provider { FeedMotorRepository(instance()) }
 }
 
 val interactorModule = Kodein.Module("Interactor") {
     bind<LoginInteractor>() with provider { LoginInteractor(instance()) }
     bind<CreateAccountInteractor>() with provider { CreateAccountInteractor(instance()) }
     bind<FeedsInteractor>() with provider { FeedsInteractor(instance()) }
+    bind<AddFeedInteractor>() with provider { AddFeedInteractor(instance(), instance(), instance()) }
 }
 
 val presenterModule = Kodein.Module("Presenters") {
     bind<LoginPresenter>() with provider { LoginPresenter(instance()) }
     bind<CreateAccountPresenter>() with provider { CreateAccountPresenter(instance()) }
-    bind<FeedsPresenter>() with provider { FeedsPresenter(instance()) }
+    bind<FeedsPresenter>() with provider { FeedsPresenter(instance(), instance()) }
 }

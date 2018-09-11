@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <!--<TextView-->
+        <!--android:id="@+id/dialogTitle"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="17dp"-->
+        <!--android:textColor="@color/colorText"-->
+        <!--android:textStyle="bold"-->
+        <!--android:text="Add feed"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"/>-->
+
+    <TextView
+        android:id="@+id/dialogUrlTitle"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:textSize="15dp"
+        android:textColor="@color/colorText"
+        android:text="Feed url:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/dialogUrlEditText"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="10dp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:hint="Ex: http://rss.com/feed.xml"
+        app:layout_constraintStart_toEndOf="@id/dialogUrlTitle"
+        app:layout_constraintTop_toTopOf="@id/dialogUrlTitle"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorPrimary"
+        android:text="Category:"
+        app:layout_constraintTop_toTopOf="@id/dialogCategorySpinner"
+        app:layout_constraintEnd_toStartOf="@id/dialogCategorySpinner"/>
+
+    <Spinner
+        android:id="@+id/dialogCategorySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:entries="@array/category_arrays"
+        app:layout_constraintTop_toBottomOf="@id/dialogUrlEditText"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/dialogCancelButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_button_round_coners_inverted"
+        android:textColor="@color/colorPrimary"
+        android:text="Cancel"
+        app:layout_constraintTop_toTopOf="@id/dialogAddButton"
+        app:layout_constraintEnd_toStartOf="@id/dialogAddButton"/>
+
+    <Button
+        android:id="@+id/dialogAddButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/white"
+        android:text="Add"
+        android:background="@drawable/bg_button_round_coners"
+        app:layout_constraintTop_toBottomOf="@id/dialogCategorySpinner"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

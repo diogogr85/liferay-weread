@@ -2,7 +2,8 @@ package com.diogo.weread.data.repositories
 
 import com.diogo.weread.BuildConfig
 import com.diogo.weread.data.models.Feed
-import com.diogo.weread.data.source.local.FeedsDao
+import com.diogo.weread.data.source.local.database.FeedsDao
+import com.diogo.weread.utils.toJsonObject
 import com.wedeploy.android.WeDeploy
 import com.wedeploy.android.transport.Response
 import io.reactivex.Completable
@@ -19,11 +20,11 @@ class FeedRepository(private val weDeployClient: WeDeploy,
                 .asSingle()
     }
 
-    fun getFeedsLocal(): Flowable<Array<Feed>> {
+    fun getFeedsLocal(): Flowable<List<Feed>> {
         return dao.getFeeds()
     }
 
-    fun persistFeeds(feeds: Array<Feed>): Completable {
+    fun saveFeedsLocal(feeds: List<Feed>): Completable {
         return Completable.create { emitter ->
             try {
                 dao.insertFeed(feeds)
@@ -34,7 +35,7 @@ class FeedRepository(private val weDeployClient: WeDeploy,
         }
     }
 
-    fun saveFeed(feed: Feed): Completable {
+    fun saveFeedLocal(feed: Feed): Completable {
         return Completable.create { emitter ->
             try {
                 dao.insertFeed(feed)
@@ -43,6 +44,12 @@ class FeedRepository(private val weDeployClient: WeDeploy,
                 emitter.onError(e)
             }
         }
+    }
+
+    fun saveFeedRemote(feed: Feed): Single<Response> {
+        return weDeployClient.data(BuildConfig.API_DATA_ENDPOINT)
+                .create("feeds", feed.toJsonObject())
+                .asSingle()
     }
 
 }

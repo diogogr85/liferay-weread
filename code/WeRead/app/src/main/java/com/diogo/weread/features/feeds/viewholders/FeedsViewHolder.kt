@@ -2,17 +2,19 @@ package com.diogo.weread.features.feeds.viewholders
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.diogo.weread.R
 
-class FeedsViewHolder: RecyclerView.ViewHolder {
+class FeedsViewHolder private constructor(itemView: View, itemClick: (position: Int) -> Unit)
+    : RecyclerView.ViewHolder(itemView) {
 
     lateinit var titleTextView: TextView
     lateinit var urlTextView: TextView
-    lateinit var readTimeTextView: TextView
-    lateinit var createdAtTextView: TextView
+    lateinit var descriptionTextView: TextView
+    lateinit var iconImageView: ImageView
 
-    private constructor(itemView: View, itemClick: (position: Int) -> Unit) : super(itemView) {
+    init {
         itemView.findViewById<View>(R.id.itemFeedContainer)
                 .setOnClickListener {
                     itemClick(adapterPosition)
@@ -29,8 +31,8 @@ class FeedsViewHolder: RecyclerView.ViewHolder {
         with(itemView) {
             titleTextView = findViewById(R.id.itemFeedTitleTextView)
             urlTextView = findViewById(R.id.itemFeedUrlTextView)
-            readTimeTextView = findViewById(R.id.itemFeedReadTimeTextView)
-            createdAtTextView = findViewById(R.id.itemFeedCreatedAtTextView)
+            descriptionTextView = findViewById(R.id.itemFeedDescriptionTextView)
+            iconImageView = findViewById(R.id.itemFeedIconImageView)
         }
     }
 
