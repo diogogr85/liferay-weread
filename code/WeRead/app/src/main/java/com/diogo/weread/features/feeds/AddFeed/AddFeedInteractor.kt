@@ -3,13 +3,11 @@ package com.diogo.weread.features.feeds.AddFeed
 import android.content.SharedPreferences
 import android.util.Log
 import com.diogo.weread.data.models.Feed
+import com.diogo.weread.data.models.User
 import com.diogo.weread.data.repositories.FeedMotorRepository
 import com.diogo.weread.data.repositories.FeedRepository
 import com.diogo.weread.data.source.local.get
-import com.diogo.weread.utils.PREFS_WEREAD_CURRENT_USER_ID
-import com.diogo.weread.utils.Utils
-import com.diogo.weread.utils.getBody
-import com.diogo.weread.utils.toJson
+import com.diogo.weread.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -21,8 +19,7 @@ class AddFeedInteractor(private val repository: FeedRepository,
 
     fun getFeedRss(feedUrl: String, category: String,
                    onSuccess: (Feed) -> Unit,
-                   onError: (String?) -> Unit,
-                   onComplete: () -> Unit): Disposable {
+                   onError: (String?) -> Unit): Disposable {
         return motorRepository.getFeedRss(feedUrl)
                 .subscribeOn(Schedulers.io())
                 .map {
@@ -41,36 +38,14 @@ class AddFeedInteractor(private val repository: FeedRepository,
                         {
                             it.printStackTrace()
                             onError(it.message)
-                        },
-                        {
-                            onComplete()
                         }
                 )
     }
 
-//    fun saveFeed(feed: Feed,
-//                 onSuccess: () -> Unit,
-//                 onError: (String) -> Unit): Disposable {
-//        return repository.saveFeedRemote(feed)
-//                .subscribeOn(Schedulers.io())
-//                .map {
-//                    repository.saveFeedLocal(it.getBody<Feed>())
-//                }
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                        {
-//                            onSuccess()
-//                        },
-//                        {
-//                            it.printStackTrace()
-//                            onError("Ocorreu uma falha. ${it.message}")
-//                        }
-//                )
-//
-//    }
-
     private fun getCurrentUserId(): String {
-        return prefs.get(PREFS_WEREAD_CURRENT_USER_ID, "-1")
+        val user = prefs.get(PREFS_WEREAD_CURRENT_USER, User("-1", "", "").toJson()).fromJson<User>()
+
+        return user.id!!
     }
 
 }

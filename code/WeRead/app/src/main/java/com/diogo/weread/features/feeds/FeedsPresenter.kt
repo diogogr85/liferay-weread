@@ -12,23 +12,25 @@ class FeedsPresenter(private val interactor: FeedsInteractor,
         compositeDisposable.clear()
     }
 
-    fun getFeeds() {
-        getView()?.showProgress(true)
-        val disposable = interactor.getFeeds(
-                {
-                    getView()?.showProgress(false)
-                    getView()?.onFeedsSuccess(it)
-                },
-                {
-                    getView()?.showProgress(false)
-                    getView()?.onFeedsError()
-                },
-                {
-                    unsubscribe()
-                }
-        )
+    fun getFeeds(forceUpdate: Boolean) {
+        if (forceUpdate) {
+            getView()?.showProgress(true)
+            val disposable = interactor.getFeeds(
+                    {
+                        getView()?.showProgress(false)
+                        getView()?.onFeedsSuccess(it)
+                    },
+                    {
+                        getView()?.showProgress(false)
+                        getView()?.onFeedsError()
+                    },
+                    {
+                        unsubscribe()
+                    }
+            )
 
-        compositeDisposable.add(disposable)
+            compositeDisposable.add(disposable)
+        }
     }
 
     fun addFeedRss(rssUrl: String, category: String) {
@@ -44,9 +46,6 @@ class FeedsPresenter(private val interactor: FeedsInteractor,
                 {
                     getView()?.showProgress(false)
                     getView()?.showMessage(it)
-                },
-                {
-//                    unsubscribe()
                 })
 
         compositeDisposable.add(disposable)

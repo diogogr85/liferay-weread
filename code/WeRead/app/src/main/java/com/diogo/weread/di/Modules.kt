@@ -11,11 +11,11 @@ import com.diogo.weread.data.source.remote.ServiceClient
 import com.diogo.weread.features.feeds.AddFeed.AddFeedInteractor
 import com.diogo.weread.features.createAccount.CreateAccountInteractor
 import com.diogo.weread.features.createAccount.CreateAccountPresenter
+import com.diogo.weread.features.feedDetails.FeedDetailsPresenter
 import com.diogo.weread.features.feeds.FeedsInteractor
 import com.diogo.weread.features.feeds.FeedsPresenter
 import com.diogo.weread.features.login.LoginInteractor
 import com.diogo.weread.features.login.LoginPresenter
-import com.prof.rssparser.Parser
 import com.wedeploy.android.WeDeploy
 import org.kodein.di.Kodein
 import org.kodein.di.generic.*
@@ -23,12 +23,11 @@ import org.kodein.di.generic.*
 
 val networkModule = Kodein.Module("Network") {
     bind<WeDeploy>() with singleton { WeDeploy.Builder().build() }
-    bind<Parser>() with singleton { Parser() }
     bind<RestApi>() with singleton { ServiceClient().getApiClient() }
 }
 
 val databaseModule = Kodein.Module("Database") {
-    bind<WeReadDataBase>() with eagerSingleton {
+    bind<WeReadDataBase>() with singleton {
         Room.databaseBuilder(instance(),
                 WeReadDataBase::class.java,
                 "weread.db")
@@ -50,7 +49,7 @@ val repositoryModule = Kodein.Module("Repository") {
 }
 
 val interactorModule = Kodein.Module("Interactor") {
-    bind<LoginInteractor>() with provider { LoginInteractor(instance()) }
+    bind<LoginInteractor>() with provider { LoginInteractor(instance(), instance()) }
     bind<CreateAccountInteractor>() with provider { CreateAccountInteractor(instance()) }
     bind<FeedsInteractor>() with provider { FeedsInteractor(instance()) }
     bind<AddFeedInteractor>() with provider { AddFeedInteractor(instance(), instance(), instance()) }
@@ -60,4 +59,5 @@ val presenterModule = Kodein.Module("Presenters") {
     bind<LoginPresenter>() with provider { LoginPresenter(instance()) }
     bind<CreateAccountPresenter>() with provider { CreateAccountPresenter(instance()) }
     bind<FeedsPresenter>() with provider { FeedsPresenter(instance(), instance()) }
+    bind<FeedDetailsPresenter>() with provider { FeedDetailsPresenter() }
 }

@@ -12,6 +12,7 @@
         android:id="@+id/itemFeedTitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:textSize="17sp"
         android:maxLines="2"
         android:ellipsize="end"
@@ -26,34 +27,28 @@
         android:id="@+id/itemFeedUrlTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:layout_marginEnd="5dp"
+        android:textSize="13sp"
         android:lines="1"
         android:ellipsize="end"
         android:textColor="@color/colorSecondaryText"
         tools:text="https://loremipsum.wedeploy.com"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemFeedTitleTextView"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/itemFeedIconImageView"/>
 
     <TextView
-        android:id="@+id/itemFeedReadTimeTextView"
+        android:id="@+id/itemFeedDescriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
         android:textSize="15sp"
+        android:lines="3"
+        android:ellipsize="end"
         android:textColor="@color/colorSecondaryText"
-        tools:text="5 min"
+        tools:text="Lorem ipsum kjansida asid as dais das djas dj asjd asd "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemFeedUrlTextView"/>
-
-    <TextView
-        android:id="@+id/itemFeedCreatedAtTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="@color/colorSecondaryText"
-        tools:text="12/03/2018"
-        app:layout_constraintTop_toTopOf="@id/itemFeedReadTimeTextView"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/itemFeedUrlTextView"
+        app:layout_constraintEnd_toStartOf="@id/itemFeedIconImageView"/>
 
 </android.support.constraint.ConstraintLayout>

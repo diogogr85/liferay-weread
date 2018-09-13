@@ -2,9 +2,9 @@ package com.diogo.weread.data.repositories
 
 import com.diogo.weread.BuildConfig
 import com.diogo.weread.data.models.Auth
-import com.diogo.weread.data.models.Session
 import com.diogo.weread.data.models.User
 import com.wedeploy.android.WeDeploy
+import com.wedeploy.android.auth.TokenAuthorization
 import com.wedeploy.android.transport.Response
 import io.reactivex.Single
 
@@ -41,8 +41,9 @@ class AuthRepository(private val weDeployClient: WeDeploy) {
      * login or main screen
      */
     @Throws(IllegalArgumentException::class)
-    fun getCurrentUser(): Single<Response> {
+    fun getCurrentUser(accessToken: String): Single<Response> {
         return weDeployClient.auth(BuildConfig.API_AUTH_ENDPOINT)
+                .authorization(TokenAuthorization(accessToken))
                 .currentUser
                 .asSingle()
     }

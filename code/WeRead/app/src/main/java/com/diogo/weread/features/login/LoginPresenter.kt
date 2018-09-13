@@ -2,6 +2,7 @@ package com.diogo.weread.features.login
 
 import android.util.Log
 import com.diogo.weread.data.models.Auth
+import com.diogo.weread.data.models.User
 import com.diogo.weread.features.base.BasePresenter
 
 
@@ -18,13 +19,12 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
                     //TODO - user signed
                     getView()?.showProgress(false)
                     Log.d("SESSION-TOKEN", it.accessToken)
-                    getView()?.onLoginSuccess()
-//                    getCurrentUser()
+//                    getView()?.onLoginSuccess()
+                    getCurrentUser(it.accessToken)
                 },
                 {
                     getView()?.showMessage(it)
                     getView()?.showProgress(false)
-                    getView()?.onLoginSuccess()
                 })
 
         compositeDisposable.add(disposable)
@@ -53,12 +53,11 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         }
     }
 
-    private fun getCurrentUser() {
+    private fun getCurrentUser(accessToken: String) {
         try {
             getView()?.showProgress(true)
-            val disposable = interactor.getCurrentUser(
+            val disposable = interactor.getCurrentUser(accessToken,
                     {
-                        //TODO - user logged
                         getView()?.onLoginSuccess()
                         getView()?.showProgress(false)
                     },
@@ -75,6 +74,11 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         }finally {
             getView()?.showProgress(false)
         }
+    }
+
+    fun isUserLogged(): Boolean {
+        val user: User? = interactor.getCachedUser()
+        return if (user != null) true else false
     }
 
 }

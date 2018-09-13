@@ -2,7 +2,9 @@ package com.diogo.weread.data.models
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import org.simpleframework.xml.*
 
 
@@ -30,6 +32,7 @@ data class User(
 )
 
 @Entity(tableName = "feed")
+@Parcelize
 data class Feed(
         @PrimaryKey(autoGenerate = true)
         val tableId: Int? = null,
@@ -41,10 +44,11 @@ data class Feed(
         val category: String?,
         val url: String?,
         val userId: String?,
-        val feedItem: List<FeedItem>?
-)
+        val feedItems: List<FeedItem>?
+): Parcelable
 
 @Entity(tableName = "feed_item")
+@Parcelize
 data class FeedItem(
         @PrimaryKey(autoGenerate = true)
         val id: Int? = null,
@@ -52,7 +56,7 @@ data class FeedItem(
         val description: String?,
         val thumbnail: String? = null,
         val url: String?
-)
+): Parcelable
 
 @Root(name = "rss", strict = false)
 data class Rss @JvmOverloads constructor(
