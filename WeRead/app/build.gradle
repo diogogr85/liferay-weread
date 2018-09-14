@@ -47,6 +47,27 @@ android {
             dimension "default"
         }
     }
+
+    //Signing
+    File signFile = file('sign.properties')
+    if (signFile.exists()) {
+        Properties p = new Properties()
+        p.load(new FileInputStream(signFile))
+        signingConfigs {
+            release {
+                storeFile file(p.releaseKeyStorePath)
+                storePassword p.releaseKeyStorePassword
+                keyAlias p.releaseKeyAlias
+                keyPassword p.releaseKeyPassword
+            }
+        }
+
+        buildTypes.release.signingConfig signingConfigs.release
+
+    } else {
+        throw new GradleException("sign.properties file not found")
+    }
+
 }
 
 androidExtensions {
