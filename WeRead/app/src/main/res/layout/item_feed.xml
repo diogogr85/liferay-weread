@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/bg_bottom_border"
+    android:id="@+id/itemFeedContainer">
+
+    <TextView
+        android:id="@+id/itemFeedTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textSize="17sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/colorText"
+        android:textStyle="bold"
+        tools:text="Title lorem ipsum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/itemFeedIconImageView"/>
+
+    <TextView
+        android:id="@+id/itemFeedUrlTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textSize="13sp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textColor="@color/colorSecondaryText"
+        tools:text="https://loremipsum.wedeploy.com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemFeedTitleTextView"
+        app:layout_constraintEnd_toStartOf="@id/itemFeedIconImageView"/>
+
+    <TextView
+        android:id="@+id/itemFeedDescriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textSize="15sp"
+        android:lines="3"
+        android:ellipsize="end"
+        android:textColor="@color/colorSecondaryText"
+        tools:text="Lorem ipsum kjansida asid as dais das djas dj asjd asd "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemFeedUrlTextView"
+        app:layout_constraintEnd_toStartOf="@id/itemFeedIconImageView"/>
+
+    <ImageView
+        android:id="@+id/itemFeedIconImageView"
+        android:layout_width="87dp"
+        android:layout_height="87dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
