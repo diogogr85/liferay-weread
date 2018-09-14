@@ -24,41 +24,27 @@ class LoginActivity: BaseActivity<LoginView>(), LoginView {
     }
 
     override fun onCreate() {
-        //FIXME - Call this at a better place
-        startService(Intent(applicationContext, FeedSyncService::class.java))
-
-        if (!presenter.isUserLogged()) {
-
-            loginButton.setOnClickListener {
-                if (isFormValid()) {
-                    presenter.authenticateUser(loginEmailEditText.text.toString(),
-                            loginPasswordEditText.text.toString())
-                }
+        loginButton.setOnClickListener {
+            if (isFormValid()) {
+                presenter.authenticateUser(loginEmailEditText.text.toString(),
+                        loginPasswordEditText.text.toString())
             }
+        }
 
-            loginCreateAccountButton.setOnClickListener {
-                startActivity(Intent(applicationContext, CreateAccountActivity::class.java))
+        loginCreateAccountButton.setOnClickListener {
+            startActivity(Intent(applicationContext, CreateAccountActivity::class.java))
+        }
+
+        loginEmailEditText.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                loginEmailEditText.error = null
             }
+        }
 
-            loginEmailEditText.setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) {
-                    loginEmailEditText.error = null
-                }
+        loginPasswordEditText.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                loginPasswordEditText.error = null
             }
-
-            loginPasswordEditText.setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) {
-                    loginPasswordEditText.error = null
-                }
-            }
-
-            if (BuildConfig.DEBUG) {
-                loginEmailEditText.setText("email@email.com")
-                loginPasswordEditText.setText("qwerty2134")
-            }
-
-        } else {
-            onLoginSuccess()
         }
     }
 

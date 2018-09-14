@@ -17,6 +17,8 @@ import com.diogo.weread.features.feeds.FeedsInteractor
 import com.diogo.weread.features.feeds.FeedsPresenter
 import com.diogo.weread.features.login.LoginInteractor
 import com.diogo.weread.features.login.LoginPresenter
+import com.diogo.weread.features.splash.SplashInteractor
+import com.diogo.weread.features.splash.SplashPresenter
 import com.wedeploy.android.WeDeploy
 import org.kodein.di.Kodein
 import org.kodein.di.generic.*
@@ -55,6 +57,7 @@ val interactorModule = Kodein.Module("Interactor") {
     bind<CreateAccountInteractor>() with provider { CreateAccountInteractor(instance()) }
     bind<FeedsInteractor>() with provider { FeedsInteractor(instance()) }
     bind<AddFeedInteractor>() with provider { AddFeedInteractor(instance(), instance(), instance()) }
+    bind<SplashInteractor>() with provider { SplashInteractor(instance()) }
 }
 
 val presenterModule = Kodein.Module("Presenters") {
@@ -62,4 +65,5 @@ val presenterModule = Kodein.Module("Presenters") {
     bind<CreateAccountPresenter>() with provider { CreateAccountPresenter(instance()) }
     bind<FeedsPresenter>() with provider { FeedsPresenter(instance(), instance()) }
     bind<FeedDetailsPresenter>() with provider { FeedDetailsPresenter() }
+    bind<SplashPresenter>() with provider { SplashPresenter(instance()) }
 }

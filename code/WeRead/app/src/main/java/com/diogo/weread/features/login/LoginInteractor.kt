@@ -85,8 +85,4 @@ class LoginInteractor(private val repository: AuthRepository) {
                 )
     }
 
-    fun getCachedUser(): User? {
-        return repository.getCachedUser()
-    }
-
 }

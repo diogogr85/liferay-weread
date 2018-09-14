@@ -76,9 +76,4 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         }
     }
 
-    fun isUserLogged(): Boolean {
-        val user: User? = interactor.getCachedUser()
-        return user != null
-    }
-
 }

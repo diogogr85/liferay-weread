@@ -30,12 +30,6 @@ class CreateAccountActivity: BaseActivity<CreateAccountView>(), CreateAccountVie
         }
 
         clearFocusListeners()
-
-        if (BuildConfig.DEBUG) {
-            createAccountNameEditText.setText("Joao das Neves")
-            createAccountEmailEditText.setText("email@email.com")
-            createAccountPasswordEditText.setText("qwerty2134")
-        }
     }
 
     /**************/
