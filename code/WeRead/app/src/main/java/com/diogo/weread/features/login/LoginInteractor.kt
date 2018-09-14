@@ -1,20 +1,17 @@
 package com.diogo.weread.features.login
 
-import android.content.SharedPreferences
 import android.util.Log
 import com.diogo.weread.data.models.Auth
 import com.diogo.weread.data.models.Session
 import com.diogo.weread.data.models.User
 import com.diogo.weread.data.repositories.AuthRepository
-import com.diogo.weread.data.source.local.put
 import com.diogo.weread.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-class LoginInteractor(private val repository: AuthRepository,
-                      private val prefs: SharedPreferences) {
+class LoginInteractor(private val repository: AuthRepository) {
 
     fun authenticateUser(auth: Auth,
                          onSuccess: (Session) -> Unit,
@@ -22,8 +19,8 @@ class LoginInteractor(private val repository: AuthRepository,
         return repository.authenticateUser(auth)
                 .subscribeOn(Schedulers.io())
                 .map {
-                    val session = it.getBody<Session>()
-                    cacheSession(session)
+                    val session = it.fromBody<Session>()
+                    repository.cacheSession(session)
                     session
                 }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,14 +43,13 @@ class LoginInteractor(private val repository: AuthRepository,
     }
 
     @Throws(IllegalArgumentException::class)
-    fun getCurrentUser(accessToKen: String,
-                       onSuccess: (User) -> Unit,
+    fun getCurrentUser(onSuccess: (User) -> Unit,
                        onError: (String) -> Unit): Disposable {
-        return repository.getCurrentUser(accessToKen)
+        return repository.getCurrentUser()
                 .subscribeOn(Schedulers.io())
                 .map {
-                    val user = it.getBody<User>()
-                    cacheUser(user)
+                    val user = it.fromBody<User>()
+                    repository.cacheUser(user)
                     user
                 }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -78,7 +74,7 @@ class LoginInteractor(private val repository: AuthRepository,
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            onSuccess(it.getBody<User>())
+                            onSuccess(it.fromBody<User>())
                             Log.d("USER-SUCCESS", "User authenticated: ${it.body}")
                         },
                         {
@@ -89,17 +85,8 @@ class LoginInteractor(private val repository: AuthRepository,
                 )
     }
 
-    fun cacheUser(user: User) {
-        prefs.put(PREFS_WEREAD_CURRENT_USER, user.toJson())
-    }
-
-    fun cacheSession(session: Session) {
-        prefs.put(PREFS_WEREAD_SESSION, session.toJson())
-        prefs.put(PREFS_WEREAD_ACCESS_TOKEN, session.accessToken)
-    }
-
     fun getCachedUser(): User? {
-        return prefs.getString(PREFS_WEREAD_CURRENT_USER, "").fromJson<User>()
+        return repository.getCachedUser()
     }
 
 }

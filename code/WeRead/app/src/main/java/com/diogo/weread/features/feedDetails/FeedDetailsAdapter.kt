@@ -10,18 +10,18 @@ import com.diogo.weread.features.feeds.viewholders.FeedsViewHolder
 
 
 class FeedDetailsAdapter(private val feedDetailsList: ArrayList<FeedItem>,
-                         private val onFeedDetailsClick: (item: FeedItem) -> Unit): RecyclerView.Adapter<FeedsViewHolder>() {
+                         private val onFeedDetailsClick: (item: FeedItem) -> Unit): RecyclerView.Adapter<FeedDetailsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedDetailsViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_feed_details, parent, false)
 
-        return FeedsViewHolder.newInstance(itemView) { position ->
+        return FeedDetailsViewHolder.newInstance(itemView) { position ->
             onFeedDetailsClick(feedDetailsList[position])
         }
     }
 
-    override fun onBindViewHolder(holder: FeedsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FeedDetailsViewHolder, position: Int) {
         if (feedDetailsList != null) {
             with(feedDetailsList[position]) {
                 holder.titleTextView.text = title

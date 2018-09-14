@@ -5,7 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.diogo.weread.data.models.Feed
 import com.diogo.weread.data.repositories.FeedRepository
-import com.diogo.weread.utils.getBody
+import com.diogo.weread.utils.fromBody
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +26,7 @@ class FeedSyncService: IntentService("FeedSyncService"), KodeinAware {
         val disposable = repository.getFeedsRemote()
                 .subscribeOn(Schedulers.io())
                 .map {
-                    repository.saveFeedsLocal(it.getBody<List<Feed>>())
+                    repository.saveFeedsLocal(it.fromBody<List<Feed>>())
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

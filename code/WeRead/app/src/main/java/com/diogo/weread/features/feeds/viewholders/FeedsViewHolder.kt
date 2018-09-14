@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.diogo.weread.R
 
+
 class FeedsViewHolder private constructor(itemView: View, itemClick: (position: Int) -> Unit)
     : RecyclerView.ViewHolder(itemView) {
 

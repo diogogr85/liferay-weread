@@ -16,7 +16,7 @@ fun EditText.validateField(errorMsg: String): Boolean {
     return false
 }
 
-inline fun <reified T> Response.getBody(): T {
+inline fun <reified T> Response.fromBody(): T {
     return Gson().fromJson(body, T::class.java)
 }
 
@@ -24,7 +24,7 @@ inline fun <reified T> String.fromJson(): T {
     return Gson().fromJson(this, T::class.java)
 }
 
-inline fun <reified T> Gson.fromJson(json: String): T {
+inline fun <reified T> Gson.fromJsonList(json: String): T {
     return this.fromJson<T>(json, object : TypeToken<T>() {}.type)
 }
 

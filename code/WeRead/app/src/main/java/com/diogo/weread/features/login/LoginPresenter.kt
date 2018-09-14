@@ -20,7 +20,7 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
                     getView()?.showProgress(false)
                     Log.d("SESSION-TOKEN", it.accessToken)
 //                    getView()?.onLoginSuccess()
-                    getCurrentUser(it.accessToken)
+                    getCurrentUser()
                 },
                 {
                     getView()?.showMessage(it)
@@ -53,10 +53,10 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
         }
     }
 
-    private fun getCurrentUser(accessToken: String) {
+    private fun getCurrentUser() {
         try {
             getView()?.showProgress(true)
-            val disposable = interactor.getCurrentUser(accessToken,
+            val disposable = interactor.getCurrentUser(
                     {
                         getView()?.onLoginSuccess()
                         getView()?.showProgress(false)
@@ -78,7 +78,7 @@ class LoginPresenter(private val interactor: LoginInteractor): BasePresenter<Log
 
     fun isUserLogged(): Boolean {
         val user: User? = interactor.getCachedUser()
-        return if (user != null) true else false
+        return user != null
     }
 
 }

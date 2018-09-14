@@ -1,10 +1,14 @@
 package com.diogo.weread.data.repositories
 
+import android.content.SharedPreferences
 import com.diogo.weread.BuildConfig
 import com.diogo.weread.data.models.Feed
+import com.diogo.weread.data.source.local.SharedPrefsManager
 import com.diogo.weread.data.source.local.database.FeedsDao
 import com.diogo.weread.utils.toJsonObject
 import com.wedeploy.android.WeDeploy
+import com.wedeploy.android.auth.Authorization
+import com.wedeploy.android.auth.TokenAuthorization
 import com.wedeploy.android.transport.Response
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -51,5 +55,6 @@ class FeedRepository(private val weDeployClient: WeDeploy,
                 .create("feeds", feed.toJsonObject())
                 .asSingle()
     }
+
 
 }

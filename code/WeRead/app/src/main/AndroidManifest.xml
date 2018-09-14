@@ -16,16 +16,6 @@
         <activity
             android:name=".features.login.LoginActivity"
             android:theme="@style/WeReadTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".features.createAccount.CreateAccountActivity" />
-
-        <activity android:name=".features.feeds.FeedsActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -33,8 +23,19 @@
             <!--</intent-filter>-->
         </activity>
 
+        <activity android:name=".features.createAccount.CreateAccountActivity" />
+
+        <activity android:name=".features.feeds.FeedsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".features.feedDetails.FeedDetailsActivity"/>
 
+        <activity android:name=".features.news.NewsActivity"/>
 
         <service
             android:name=".data.services.FeedSyncService"

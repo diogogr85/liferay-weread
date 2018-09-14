@@ -1,5 +1,6 @@
 package com.diogo.weread.features.feeds
 
+import android.util.Log
 import com.diogo.weread.data.models.Feed
 import com.diogo.weread.features.feeds.AddFeed.AddFeedInteractor
 import com.diogo.weread.features.base.BasePresenter
@@ -17,8 +18,12 @@ class FeedsPresenter(private val interactor: FeedsInteractor,
             getView()?.showProgress(true)
             val disposable = interactor.getFeeds(
                     {
-                        getView()?.showProgress(false)
-                        getView()?.onFeedsSuccess(it)
+                        if (!it.isEmpty()) {
+                            getView()?.showProgress(false)
+                            getView()?.onFeedsSuccess(it)
+                        } else {
+                            getFeedsRemote()
+                        }
                     },
                     {
                         getView()?.showProgress(false)
@@ -33,6 +38,21 @@ class FeedsPresenter(private val interactor: FeedsInteractor,
         }
     }
 
+    fun getFeedsRemote() {
+        val disposable = interactor.getFeedsRemote(
+                {
+                    getView()?.showProgress(false)
+                    getView()?.onFeedsSuccess(it)
+                },
+                {
+                    getView()?.showProgress(false)
+                    getView()?.onFeedsError()
+                }
+        )
+
+        compositeDisposable.add(disposable)
+    }
+
     fun addFeedRss(rssUrl: String, category: String) {
         getView()?.showProgress(true)
         val disposable = addInteractor.getFeedRss(rssUrl, category,
@@ -41,7 +61,8 @@ class FeedsPresenter(private val interactor: FeedsInteractor,
                     getView()?.onAddFeedsSuccess(feed)
 
                     //Start sync
-                    saveFeed(feed)
+                    saveFeedLocal(feed)
+                    saveFeedRemote(feed)
                 },
                 {
                     getView()?.showProgress(false)
@@ -51,15 +72,26 @@ class FeedsPresenter(private val interactor: FeedsInteractor,
         compositeDisposable.add(disposable)
     }
 
-    private fun saveFeed(feed: Feed) {
-        val disposable = interactor.saveFeed(feed,
+    private fun saveFeedLocal(feed: Feed) {
+        val disposable = interactor.saveFeedLocal(feed,
+                {
+                    Log.d("SAVE-LOCAL", "Saved")
+                },
+                {
+                    Log.d("SAVE-LOCAL", "Failed")
+                }
+        )
+
+        compositeDisposable.add(disposable)
+    }
+
+    private fun saveFeedRemote(feed: Feed) {
+        val disposable = interactor.saveFeedRemote(feed,
                 {
                     getView()?.showMessage("Sync complete")
-                    unsubscribe()
                 },
                 {
                     getView()?.showMessage("Sync failed")
-                    unsubscribe()
                 })
 
         compositeDisposable.add(disposable)

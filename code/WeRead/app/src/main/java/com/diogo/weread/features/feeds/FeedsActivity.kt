@@ -42,6 +42,7 @@ class FeedsActivity: BaseActivity<FeedsView>(), FeedsView {
                 intent.putParcelableArrayListExtra(EXTRA_FEED_DETAILS, ArrayList(it.feedItems))
                 intent.putExtra(EXTRA_FEED_DETAILS_TITLE, it.title)
                 startActivity(intent)
+                hasSavedInstances = true
             }
         }
 

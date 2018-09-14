@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room
 import com.diogo.weread.data.repositories.AuthRepository
 import com.diogo.weread.data.repositories.FeedMotorRepository
 import com.diogo.weread.data.repositories.FeedRepository
+import com.diogo.weread.data.source.local.SharedPrefsManager
 import com.diogo.weread.data.source.local.database.FeedsDao
 import com.diogo.weread.data.source.local.database.WeReadDataBase
 import com.diogo.weread.data.source.remote.RestApi
@@ -40,16 +41,17 @@ val daoModule = Kodein.Module("Dao") {
         val db: WeReadDataBase = instance()
         db.feedsDao()
     }
+    bind<SharedPrefsManager>() with provider { SharedPrefsManager(instance()) }
 }
 
 val repositoryModule = Kodein.Module("Repository") {
-    bind<AuthRepository>() with provider { AuthRepository(instance()) }
+    bind<AuthRepository>() with provider { AuthRepository(instance(), instance()) }
     bind<FeedRepository>() with provider { FeedRepository(instance(), instance()) }
     bind<FeedMotorRepository>() with provider { FeedMotorRepository(instance()) }
 }
 
 val interactorModule = Kodein.Module("Interactor") {
-    bind<LoginInteractor>() with provider { LoginInteractor(instance(), instance()) }
+    bind<LoginInteractor>() with provider { LoginInteractor(instance()) }
     bind<CreateAccountInteractor>() with provider { CreateAccountInteractor(instance()) }
     bind<FeedsInteractor>() with provider { FeedsInteractor(instance()) }
     bind<AddFeedInteractor>() with provider { AddFeedInteractor(instance(), instance(), instance()) }

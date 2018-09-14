@@ -2,11 +2,12 @@ package com.diogo.weread.features.feedDetails
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.diogo.weread.R
 
-class FeedDetailsViewHolder private constructor(itemView: View, itemClick: (position: Int) -> Unit)
+
+class FeedDetailsViewHolder private constructor(itemView: View,
+                                                itemClick: (position: Int) -> Unit)
     : RecyclerView.ViewHolder(itemView) {
 
     lateinit var titleTextView: TextView
@@ -28,9 +29,9 @@ class FeedDetailsViewHolder private constructor(itemView: View, itemClick: (posi
 
     init {
         with(itemView) {
-            titleTextView = findViewById(R.id.itemFeedTitleTextView)
-            urlTextView = findViewById(R.id.itemFeedUrlTextView)
-            descriptionTextView = findViewById(R.id.itemFeedDescriptionTextView)
+            titleTextView = findViewById(R.id.itemFeedDetailsTitleTextView)
+            urlTextView = findViewById(R.id.itemFeedDetailsUrlTextView)
+            descriptionTextView = findViewById(R.id.itemFeedDetailsDescriptionTextView)
         }
     }
 
